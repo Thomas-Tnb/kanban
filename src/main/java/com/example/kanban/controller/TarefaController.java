@@ -5,6 +5,7 @@ import com.example.kanban.service.TarefaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,13 +27,13 @@ public class TarefaController {
     }
 
     @GetMapping("/prioridade/{prioridade}") //filtro por prioridade
-    private List<Tarefa> getTarefasByPrioridade(@PathVariable String prioridade){
+    private List<Tarefa> getTarefasByPrioridade(@PathVariable int prioridade){
         return tarefaService.getTarefasByPrioridade(prioridade);
     }
 
     @GetMapping("/dataLimite/{dataLimite}") //filtro por dataFinal
-    private List<Tarefa> getTarefasByDataLimite(@PathVariable Date dataFinal){
-        return tarefaService.getTarefasByDataLimite(dataFinal);
+    private List<Tarefa> getTarefasByDataLimite(@PathVariable LocalDate dataLimite){
+        return tarefaService.getTarefasByDataLimite(dataLimite);
     }
 
     @GetMapping("/relatorio")

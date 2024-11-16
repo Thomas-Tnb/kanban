@@ -4,6 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import org.springframework.cglib.core.Local;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 public class Tarefa {
@@ -13,7 +17,7 @@ public class Tarefa {
     private String titulo;
     private String descricao;
     private String dataCriacao;
-    private String dataLimite;
+    private LocalDate dataLimite;
     private int status = 0; // 0 - a fazer 1 - em progresso 2 - concluido
     private int prioridade; // 0 - baixa 1 - media 2 - alta
 
@@ -33,7 +37,7 @@ public class Tarefa {
         this.dataCriacao = dataCriacao;
     }
 
-    public void setDataLimite(String dataLimite) {
+    public void setDataLimite(LocalDate dataLimite) {
         this.dataLimite = dataLimite;
     }
 
@@ -45,7 +49,7 @@ public class Tarefa {
         this.prioridade = prioridade;
     }
 
-    public String getDataLimite() {
+    public LocalDate getDataLimite() {
         return dataLimite;
     }
 
@@ -71,5 +75,16 @@ public class Tarefa {
 
     public int getId() {
         return id;
+    }
+
+    public String getDataLimiteAsString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return dataLimite.format(formatter);
+    }
+
+    // Setter para dataLimite a partir de String
+    public void setDataLimiteFromString(String dataLimiteStr) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.dataLimite = LocalDate.parse(dataLimiteStr, formatter);
     }
 }

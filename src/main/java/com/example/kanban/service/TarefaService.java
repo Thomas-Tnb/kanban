@@ -5,6 +5,7 @@ import com.example.kanban.repository.TarefaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,12 +24,12 @@ public class TarefaService {
         return lista;
     }
 
-    public List<Tarefa> getTarefasByPrioridade(String prioridade) {
+    public List<Tarefa> getTarefasByPrioridade(int prioridade) {
         return tarefaRepository.findByPrioridade(prioridade);
     }
 
-    public List<Tarefa> getTarefasByDataLimite(Date dataFinal) {
-        return tarefaRepository.findByDataFinal(dataFinal);
+    public List<Tarefa> getTarefasByDataLimite(LocalDate dataLimite) {
+        return tarefaRepository.findByDataLimite(dataLimite);
     }
 
     public List<List<Tarefa>> getRelatorio() {
@@ -79,7 +80,7 @@ public class TarefaService {
         tarefaAnt.setTitulo(tarefa.getTitulo());
         tarefaAnt.setDescricao(tarefa.getDescricao());
         tarefaAnt.setPrioridade(tarefa.getPrioridade());
-        tarefaAnt.setDataLimite(tarefa.getDataLimite());
+        tarefaAnt.setDataLimiteFromString(tarefa.getDataLimiteAsString());
         tarefaRepository.save(tarefaAnt);
         return tarefaAnt;
     }
